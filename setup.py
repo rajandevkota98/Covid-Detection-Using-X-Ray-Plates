@@ -14,7 +14,7 @@ def get_requirements():
 
 
 setup(
-    name='x-ray-disease-detection',
+    name='xray',
     version='1.0.0',
     author='Rajan Devkota',
     author_email='r.devkota.98@gmail.com',
