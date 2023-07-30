@@ -1,9 +1,10 @@
 from xray.exception import XrayException
 from xray.logger import logging
-from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig
-from xray.entity.artifact_entity import DataIngestionArtifact
+from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig
+from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact
 import os, sys
 from xray.components.data_ingestion import DataIngestion
+from xray.components.data_validation import DataValidation
 
 
 class  Trainipipeline:
@@ -20,8 +21,20 @@ class  Trainipipeline:
         except XrayException as e:
             raise XrayException(e,sys)
         
+    def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact)->DataValidationArtifact:
+         try:
+            logging.info("Starting data validation")
+            self.data_validation_config = DataValidationConfig(training_pipeline_config=self.training_pipeline_config)
+            data_validation = DataValidation(data_validation_config=self.data_validation_config,data_ingestion_artifact= data_ingestion_artifact )
+            data_validation_artifact = data_validation.initiate_data_validation()
+
+         except XrayException as e:
+                     raise XrayException(e,sys)
+         
     def run_pieline(self):
         try:
             data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact)
+
         except XrayException as e:
                 raise XrayException(e,sys)

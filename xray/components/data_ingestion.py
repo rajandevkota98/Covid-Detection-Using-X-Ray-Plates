@@ -3,11 +3,16 @@ from xray.logger import logging
 from xray.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig
 from xray.entity.artifact_entity import DataIngestionArtifact
 import os, sys
+from xray.constants.training_pipeline import TEST_FILE_NAME, TRAIN_FILE_NAME, FILE_NAME
+import shutil
 
 class DataIngestion:
     def __init__(self, data_ingestion_config: DataIngestionConfig):
         try:
             self.data_ingestion_config = data_ingestion_config
+            self.test_file_name  = TEST_FILE_NAME
+            self.train_file_name = TRAIN_FILE_NAME
+            self.file_name = FILE_NAME
         except Exception as e:
             raise XrayException(e,sys)
         
@@ -25,11 +30,29 @@ class DataIngestion:
 
         except Exception as e:
                 raise XrayException(e,sys)
+        
+    
+    def preparing_data(self,):
+         try:
+              training_data_file_path = self.data_ingestion_config.training_data_file_path
+              test_data_file_path = self.data_ingestion_config.test_data_file_path
+
+              source_training_data_file_path = os.path.join(self.data_ingestion_config.feature_store_file_path, self.train_file_name)
+              source_test_data_file_path = os.path.join(self.data_ingestion_config.feature_store_file_path, self.test_file_name)
+
+              shutil.copytree(source_training_data_file_path,training_data_file_path)
+              shutil.copytree(source_test_data_file_path,test_data_file_path)
+
+
+
+         except Exception as e:
+                raise XrayException(e,sys)
     
 
     def initiate_data_ingestion(self,):
         try:
             data = self.data_download()
+            self.preparing_data()
             data_ingestion_artifact =DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_data_file_path, test_file_path=self.data_ingestion_config.test_data_file_path)
             return data_ingestion_artifact
         except Exception as e:
