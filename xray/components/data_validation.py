@@ -75,7 +75,8 @@ class DataValidation:
     
     def write_report(self,):
         report_file_path = self.data_validation_config.data_report_file_path
-        os.makedirs(report_file_path, exist_ok=True)
+        dir_path = os.path.dirname(report_file_path)
+        os.makedirs(dir_path, exist_ok=True)
         write_yaml_file(file_path=report_file_path, content=self.report)
 
     def initiate_data_validation(self,):
