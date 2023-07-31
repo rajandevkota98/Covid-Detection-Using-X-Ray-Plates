@@ -1,13 +1,14 @@
 from xray.exception import XrayException
 from xray.logger import logging
-from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig, ModelTrainerConfig, ModelEvaluationConfig
-from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact, ModelTrainerArtifact, ModelEvaluationArtifact
+from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig, ModelTrainerConfig, ModelEvaluationConfig, ModelPusherConfig
+from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact, ModelTrainerArtifact, ModelEvaluationArtifact, ModelPusherArtifact
 import os, sys
 from xray.components.data_ingestion import DataIngestion
 from xray.components.data_validation import DataValidation
 from xray.components.model_trainer import ModelTrainer
 from xray.cnn.model.base_model import BaseModel
 from xray.components.model_evaluation import ModelEvaluation
+from xray.components.model_pusher import ModelPusher
 
 class  Trainipipeline:
     def __init__(self,):
@@ -58,6 +59,15 @@ class  Trainipipeline:
         except Exception as e:
              raise XrayException(e,sys)
          
+
+    def start_model_pusher(self,model_trainer_artifact:ModelTrainerArtifact, model_evaluation_artifact:ModelEvaluationArtifact):
+         try:
+            logging.info('Starting model pusher')
+            self.model_pusher_config = ModelPusherConfig(training_pipeline_config=self.training_pipeline_config)
+            model_pusher = ModelPusher(model_pusher_config=self.model_pusher_config, model_evaluation_artifact=model_evaluation_artifact, model_trainer_artifact=model_trainer_artifact)
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+         except Exception as e:
+              raise XrayException(e,sys)
     
 
          
@@ -70,6 +80,7 @@ class  Trainipipeline:
             model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact, model_trainer_artifact)
             if not model_evaluation_artifact.is_model_accepted:
                  raise Exception('The Previous Model is Best than this model')
+            model_pusher_artifact = self.start_model_pusher(model_trainer_artifact, model_evaluation_artifact)
             
         except XrayException as e:
                 raise XrayException(e,sys)
