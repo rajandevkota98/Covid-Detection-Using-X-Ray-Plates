@@ -44,17 +44,7 @@ class XrayModel:
 
         except Exception as e:
             raise XrayException(e,sys)
-        
 
-        
-
-base_model_config = BaseModelConfig()
-base_model = BaseModel(base_model_config)
-base_model_artifact = base_model.get_base_model()
-
-xray_model = XrayModel(base_model_artifact.base_model_path)
-model = xray_model.create_model()
-print(model.summary())
 
 
 

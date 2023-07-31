@@ -9,3 +9,4 @@ LEARNING_RATE: 0.01
 OPTIMIZER: 'adam'
 LOSS: 'binary_crossentropy'
 METRICS: ['accuracy']
+TARGET_SIZE: [224,224]

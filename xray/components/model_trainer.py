@@ -23,7 +23,7 @@ class ModelTrainer:
         
     def initiate_model_trainer(self,) -> None:
         try:
-            xraymodel = XrayModel(base_model_path= self.base_model_artifact)
+            xraymodel = XrayModel(base_model_path= self.base_model_artifact.base_model_path)
             self.model = xraymodel.create_model()
             logging.info('model is created')
 
@@ -42,14 +42,14 @@ class ModelTrainer:
 
             train_data = train_datagen.flow_from_directory(
             self.data_ingestion_artifact.trained_file_path,
-            target_size=self._params_schema['IMAGE_SIZE'],
+            target_size=self._params_schema['TARGET_SIZE'],
             batch_size=self._params_schema['BATCH_SIZE'],
             class_mode='binary')
             logging.info('Train data is done, read from parasm schema')
 
             test_data = test_datagen.flow_from_directory(
             self.data_ingestion_artifact.trained_file_path,
-            target_size=self._params_schema['IMAGE_SIZE'],
+            target_size=self._params_schema['TARGET_SIZE'],
             batch_size=self._params_schema['BATCH_SIZE'],
             class_mode='binary')
             logging.info('Test data is done, read from parasm schema')
@@ -64,28 +64,17 @@ class ModelTrainer:
             logging.info('Model is trained successfully')
 
 
-            true_train_lable = train_data.classes
-            logging.info(f"true_train_lable: {true_train_lable}")
-            true_test_lable = test_data.classes
-            logging.info(f"true_test_lable: {true_test_lable}")
+            train_accuracy = self.model.evaluate(train_data,steps = len(train_data))
+            logging.info(f"train_accuracy: {train_accuracy}")
 
+            test_accuracy = self.model.evaluate(test_data,steps = len(test_data))
+            logging.info(f"test_accuracy: {test_accuracy}")
 
-            training_prediction =self.model.predict(train_data)
-            logging.info(f"training_prediction: {training_prediction}")
-            training_predicted_labels = (training_prediction > 0.5).astype(int)
-            logging.info(f"training_predicted_labels: {training_predicted_labels}")
-            train_accuracy_score = get_classification_score(true_train_lable,training_predicted_labels).model_accuracy
-            logging.info(f"training_accuracy_score: {train_accuracy_score}")
-
-            if train_accuracy_score < self.model_trainer_config.expected_accuracy:
+            if train_accuracy < self.model_trainer_config.expected_accuracy:
                 raise Exception('Training Accuracy is less than expected accuracy')
             
-            test_prediction = self.model.predict(test_data)
-            test_predicted_labels = (test_prediction > 0.5).astype(int)
-            test_accuracy_score = get_classification_score(true_test_lable,test_predicted_labels).model_accuracy
-            logging.info(f"test_accuracy_score: {test_accuracy_score}")
 
-            diff = abs(train_accuracy_score - test_accuracy_score)
+            diff = abs(train_accuracy - test_accuracy)
             logging.info(f"diff: {diff}")
             if diff > self.model_trainer_config.overfit_threshold:
                 raise Exception('Model is overfit accuracy')

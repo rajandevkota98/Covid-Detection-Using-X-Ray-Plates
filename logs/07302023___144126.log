@@ -1,5 +1,0 @@
-[ 2023-07-30 14:41:27,156 ] 17 root - INFO - Starting data ingestion
-[ 2023-07-30 14:41:54,334 ] 26 root - INFO - Starting data validation
-[ 2023-07-30 14:41:54,334 ] 10 root - INFO - Reading Yaml File
-[ 2023-07-30 14:41:54,336 ] 57 root - INFO - checking images
-[ 2023-07-30 14:41:54,511 ] 57 root - INFO - checking images
