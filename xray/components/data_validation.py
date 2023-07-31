@@ -42,7 +42,6 @@ class DataValidation:
         
         """
         try:
-            logging.info(f'checking valid image for not {image_path}')
             image = Image.open(image_path)
             image.verify()
             return True

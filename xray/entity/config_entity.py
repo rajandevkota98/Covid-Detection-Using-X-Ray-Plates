@@ -40,3 +40,11 @@ class ModelTrainerConfig:
         self.overfit_threshold = training_pipeline.OVERFIT_THRESHOLD
 
         
+class ModelEvaluationConfig:
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
+        self.model_evaluation_dir_name: str =os.path.join(training_pipeline_config.artifact_dir, training_pipeline.MODEL_EVALUATION_DIR_NAME)
+        self.model_evaluation_threshold = training_pipeline.MODEL_EVALUATION_CHANGED_THRESHOLD
+        self.model_evaluation_report_path = os.path.join(self.model_evaluation_dir_name,training_pipeline.MODEL_EVALUATION_REPORT_NAME)
+    
+        
+

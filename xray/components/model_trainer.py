@@ -47,7 +47,7 @@ class ModelTrainer:
             logging.info('Train data is done, read from parasm schema')
 
             test_data = test_datagen.flow_from_directory(
-            self.data_ingestion_artifact.trained_file_path,
+            self.data_ingestion_artifact.test_file_path,
             target_size=self._params_schema['TARGET_SIZE'],
             batch_size=self._params_schema['BATCH_SIZE'],
             class_mode='binary')
@@ -63,10 +63,10 @@ class ModelTrainer:
             logging.info('Model is trained successfully')
 
 
-            train_accuracy = self.model.evaluate(train_data,steps = len(train_data))
+            _,train_accuracy = self.model.evaluate(train_data,steps = len(train_data))
             logging.info(f"train_accuracy: {train_accuracy}")
 
-            test_accuracy = self.model.evaluate(test_data,steps = len(test_data))
+            _,test_accuracy = self.model.evaluate(test_data,steps = len(test_data))
             logging.info(f"test_accuracy: {test_accuracy}")
 
             if train_accuracy < self.model_trainer_config.expected_accuracy:

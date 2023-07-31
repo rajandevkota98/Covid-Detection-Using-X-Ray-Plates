@@ -12,6 +12,9 @@ TEST_FILE_NAME: str ='Val'
 MODEL_FILE_NAME: str = 'model.h5'
 PARAMS_FILE_PATH: str ='params/params.yaml'
 CONFIG_FILE_PATH: str = 'config/config.yaml'
+SAVED_MODEL_DIR: str = 'saved_model'
+
+
 
 """Data ingestion constant"""
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
@@ -33,8 +36,15 @@ BASE_MODEL_NAME: str = 'base_model.h5'
 """Model Trainer"""
 MODEL_TRAINER_DIR_NAME: str = 'model_trainer'
 MODEL_TRAINER_MODEL_NAME: str = 'trained_model.h5'
-EXPECTED_ACCURACY: int = 0.7
-OVERFIT_THRESHOLD: int = 0.3
+EXPECTED_ACCURACY: float = 0.7
+OVERFIT_THRESHOLD: float = 0.3
+
+"""Model Evaluation"""
+MODEL_EVALUATION_DIR_NAME:str = 'model_evaluation'
+MODEL_EVALUATION_CHANGED_THRESHOLD: float = 0.05
+MODEL_EVALUATION_REPORT_NAME:str = 'model_report.yaml'
 
 
 
+
+"""Model Pusher"""
