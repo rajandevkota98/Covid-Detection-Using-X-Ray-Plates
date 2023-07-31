@@ -1,12 +1,13 @@
 from xray.exception import XrayException
 from xray.logger import logging
-from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig, ModelTrainerConfig
-from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact, ModelTrainerArtifact
+from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig, ModelTrainerConfig, ModelEvaluationConfig
+from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact, ModelTrainerArtifact, ModelEvaluationArtifact
 import os, sys
 from xray.components.data_ingestion import DataIngestion
 from xray.components.data_validation import DataValidation
 from xray.components.model_trainer import ModelTrainer
 from xray.cnn.model.base_model import BaseModel
+from xray.components.model_evaluation import ModelEvaluation
 
 class  Trainipipeline:
     def __init__(self,):
@@ -48,6 +49,15 @@ class  Trainipipeline:
          except Exception as e:
             raise XrayException(e,sys)
          
+    def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact, model_trainer_artifact: ModelTrainerArtifact):
+        try:
+            logging.info('Starting model evaluation')
+            self.model_evaluation_config = ModelEvaluationConfig(training_pipeline_config=self.training_pipeline_config)
+            model_evaluation = ModelEvaluation(data_ingestion_artifact=data_ingestion_artifact, model_trainer_artifact=model_trainer_artifact)
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+        except Exception as e:
+             raise XrayException(e,sys)
+         
     
 
          
@@ -57,5 +67,9 @@ class  Trainipipeline:
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact)
             base_model_artifact = self.base_model()
             model_trainer_artifact = self.start_model_training(data_ingestion_artifact, base_model_artifact)
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact, model_trainer_artifact)
+            if not model_evaluation_artifact.is_model_accepted:
+                 raise Exception('The Previous Model is Best than this model')
+            
         except XrayException as e:
                 raise XrayException(e,sys)

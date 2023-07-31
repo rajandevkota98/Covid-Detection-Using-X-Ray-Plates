@@ -12,7 +12,6 @@ TEST_FILE_NAME: str ='Val'
 MODEL_FILE_NAME: str = 'model.h5'
 PARAMS_FILE_PATH: str ='params/params.yaml'
 CONFIG_FILE_PATH: str = 'config/config.yaml'
-SAVED_MODEL_DIR: str = 'saved_model'
 
 
 
@@ -48,3 +47,5 @@ MODEL_EVALUATION_REPORT_NAME:str = 'model_report.yaml'
 
 
 """Model Pusher"""
+MODEL_PUSHER_DIR_NAME:str = 'model_pusher'
+MODEL_PUSHER_SAVED_MODEL_DIR:str =SAVED_MODEL_DIR
