@@ -26,6 +26,7 @@ class DataIngestion:
             data_path = self.data_ingestion_config.feature_store_file_path
             dir_path = os.path.dirname(data_path)
             os.makedirs(dir_path,exist_ok=True)
+            logging.info('Syncing data to directory')
             os.system(f"aws s3 sync s3://xray11/Dataset/ {data_path} --no-progress")
 
         except Exception as e:
@@ -39,10 +40,12 @@ class DataIngestion:
 
               source_training_data_file_path = os.path.join(self.data_ingestion_config.feature_store_file_path, self.train_file_name)
               source_test_data_file_path = os.path.join(self.data_ingestion_config.feature_store_file_path, self.test_file_name)
-
+              logging.info('copying training data')
               shutil.copytree(source_training_data_file_path,training_data_file_path)
+              logging.info('completed copying training data')
+              logging.info('copying test data')
               shutil.copytree(source_test_data_file_path,test_data_file_path)
-
+              logging.info('completed copying test data')
 
 
          except Exception as e:
@@ -54,6 +57,8 @@ class DataIngestion:
             data = self.data_download()
             self.preparing_data()
             data_ingestion_artifact =DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_data_file_path, test_file_path=self.data_ingestion_config.test_data_file_path)
+            logging.info('data ingestion completed successfully')
+            logging.info(f'data ingestion artifact: {data_ingestion_artifact}')
             return data_ingestion_artifact
         except Exception as e:
                     raise XrayException(e,sys)

@@ -8,6 +8,8 @@ import os, sys
 from utils.common import read_yaml_file
 from xray.constants.training_pipeline import PARAMS_FILE_PATH
 import tensorflow as tf
+from xray.cnn.metrics.classification_metric import get_classification_score
+
 
 class ModelTrainer:
     def __init__(self, model_trainer_config: ModelTrainerConfig, base_model_artifact: BaseModelArtifact, data_ingestion_artifact: DataIngestionArtifact):
@@ -19,7 +21,7 @@ class ModelTrainer:
         except Exception  as e:
             raise XrayException(e,sys)        
         
-    def model_training(self,) -> None:
+    def initiate_model_trainer(self,) -> None:
         try:
             xraymodel = XrayModel(base_model_path= self.base_model_artifact)
             self.model = xraymodel.create_model()
@@ -53,14 +55,34 @@ class ModelTrainer:
                 validation_data=test_data,
                 validation_steps=len(test_data)
             )
+
+            true_train_lable = train_data.classes
+            true_test_lable = test_data.classes
+        
+
+            training_prediction =self.model.predict(train_data)
+            training_predicted_labels = (training_prediction > 0.5).astype(int)
+            train_accuracy_score = get_classification_score(true_train_lable,training_predicted_labels).model_accuracy
+
+
+            if train_accuracy_score < self.model_trainer_config.expected_accuracy:
+                raise Exception('Training Accuracy is less than expected accuracy')
             
+            test_prediction = self.model.predict(test_data)
+            test_predicted_labels = (test_prediction > 0.5).astype(int)
+            test_accuracy_score = get_classification_score(true_test_lable,test_predicted_labels).model_accuracy
+
+            diff = abs(train_accuracy_score - test_accuracy_score)
+            if diff > self.model_trainer_config.overfit_threshold:
+                raise Exception('Model is overfit accuracy')
 
 
             os.makedirs(os.path.dirname(self.model_trainer_config.trained_model_file_path), exist_ok=True)
-            self.model.save(self.model_trainer_config.trained_model_dir_name, overwrite= True)
+            self.model.save(self.model_trainer_config.trained_model_file_path, overwrite= True)
 
+            model_trainer_artifact = ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path)
 
-
+            return model_trainer_artifact
 
 
             

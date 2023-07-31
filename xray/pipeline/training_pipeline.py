@@ -1,10 +1,11 @@
 from xray.exception import XrayException
 from xray.logger import logging
-from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig
-from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact
+from xray.entity.config_entity import TrainingPipelineConfig,DataIngestionConfig,DataValidationConfig,BaseModelConfig, ModelTrainerConfig
+from xray.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact, BaseModelArtifact, ModelTrainerArtifact
 import os, sys
 from xray.components.data_ingestion import DataIngestion
 from xray.components.data_validation import DataValidation
+from xray.components.model_trainer import ModelTrainer
 from xray.cnn.model.base_model import BaseModel
 
 class  Trainipipeline:
@@ -36,14 +37,25 @@ class  Trainipipeline:
         base_model = BaseModel(base_model_config)
         base_model_artifact = base_model.get_base_model()
         return base_model_artifact
+    
+    def start_model_training(self, data_ingestion_artifact:DataIngestionArtifact, base_model_artifact:BaseModelArtifact):
+         try:
+            logging.info('starting the model training')
+            self.model_training_config = ModelTrainerConfig(training_pipeline_config= self.training_pipeline_config)
+            model_trainer = ModelTrainer(model_trainer_config=self.model_training_config, base_model_artifact=base_model_artifact, data_ingestion_artifact=data_ingestion_artifact)
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            return model_trainer_artifact
+         except Exception as e:
+            raise XrayException(e,sys)
+         
+    
+
          
     def run_pieline(self):
         try:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact)
             base_model_artifact = self.base_model()
-            
-            
-
+            model_trainer_artifact = self.start_model_training(data_ingestion_artifact, base_model_artifact)
         except XrayException as e:
                 raise XrayException(e,sys)
