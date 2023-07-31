@@ -23,9 +23,4 @@ class ModelTrainerArtifact:
     trained_model_file_path:str
 
 
-@dataclass
-class ClassificationArtifact:
-    model_f1_score:int
-    model_precision_score:int
-    model_recall_score:int
-    model_accuracy:int
+

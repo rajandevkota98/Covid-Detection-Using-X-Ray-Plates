@@ -8,7 +8,6 @@ import os, sys
 from xray.utils.common import read_yaml_file
 from xray.constants.training_pipeline import PARAMS_FILE_PATH
 import tensorflow as tf
-from xray.cnn.metrics.classification_metric import get_classification_score
 
 
 class ModelTrainer:
