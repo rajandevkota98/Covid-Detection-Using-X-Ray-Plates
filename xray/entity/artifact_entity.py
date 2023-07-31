@@ -14,5 +14,5 @@ class DataValidationArtifact:
 
 
 @dataclass
-class BaseModel:
+class BaseModelArtifact:
     base_model_path:str

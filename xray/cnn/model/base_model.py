@@ -3,7 +3,7 @@ from xray.exception import XrayException
 from xray.logger import logging
 from xray.utils.common import read_yaml_file
 from xray.entity.config_entity import BaseModelConfig
-from xray.entity.artifact_entity import BaseModel
+from xray.entity.artifact_entity import BaseModelArtifact
 from xray.constants.training_pipeline import PARAMS_FILE_PATH
 import tensorflow as tf
 
@@ -27,18 +27,15 @@ class BaseModel:
             )
             os.makedirs(os.path.dirname(self.base_model_config.base_model_path), exist_ok=True)
             self.model.save(self.base_model_config.base_model_path, overwrite= False)
+            base_model_artifact = BaseModelArtifact(base_model_path=self.base_model_config.base_model_path)
+            return base_model_artifact
         except Exception as e:
-             raise XrayException(e)
+             raise XrayException(e,sys)
 
-        
+
 base_model_config = BaseModelConfig()
-
 base_model = BaseModel(base_model_config)
 base_model.get_base_model()
-    
-
-
-   
 
 
 
