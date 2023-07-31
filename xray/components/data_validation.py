@@ -21,11 +21,13 @@ class DataValidation:
         try:
             num_directory = 0
             label =self._config['label']
+            logging.info('checking label')
             for entry in os.scandir(dir_path):
                 if entry.is_dir():
                     num_directory += 1
             if num_directory == label:
                 self.report['number_of_labels'] =num_directory
+                logging.info('checking labels done')
                 return True
             else:
                 raise Exception(f'{dir_path} Label are distrubed')
@@ -40,6 +42,7 @@ class DataValidation:
         
         """
         try:
+            logging.info(f'checking valid image for not {image_path}')
             image = Image.open(image_path)
             image.verify()
             return True
@@ -74,6 +77,7 @@ class DataValidation:
             raise XrayException(e,sys)
     
     def write_report(self,):
+        logging.info("Writing report")
         report_file_path = self.data_validation_config.data_report_file_path
         dir_path = os.path.dirname(report_file_path)
         os.makedirs(dir_path, exist_ok=True)
@@ -90,6 +94,8 @@ class DataValidation:
             self.write_report()
 
             data_validation_artifact = DataValidationArtifact(valid_test_file_path=self.data_ingestion_artifact.test_file_path, valid_train_file_path= self.data_ingestion_artifact.trained_file_path,report_file_path= self.data_validation_config.data_report_file_path)
+            logging.info('Validated Successfully')
+            logging.info(f'Data Validation artifact {data_validation_artifact}')
             return data_validation_artifact
 
         except Exception as e:
