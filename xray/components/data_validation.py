@@ -64,11 +64,11 @@ class DataValidation:
 
                 for image in os.listdir(label_dir):
                     image_path = os.path.join(label_dir,image)
-                    if not self.check_if_valid(image_path):
-                        raise Exception(f'Not image found in the {label}')
-                    else:
+                    if self.check_if_valid(image_path):
                         num_image += 1
-                self.report[f"No of images on {label}"]= num_image
+                    else:
+                        raise Exception(f'{image_path} is not a valid image in the {label} directory')
+                self.report[f"No of images on {image_dir}"]= num_image
             return True 
         except Exception as e:
             raise XrayException(e,sys)
@@ -89,7 +89,7 @@ class DataValidation:
             self.check_image_or_not(test_file_path)
             self.write_report()
 
-            data_validation_artifact = DataValidationArtifact(test_file_path=self.data_ingestion_artifact.test_file_path, train_file_path= self.data_ingestion_artifact.trained_file_path,report_file_path= self.data_validation_config.data_report_file_path)
+            data_validation_artifact = DataValidationArtifact(valid_test_file_path=self.data_ingestion_artifact.test_file_path, valid_train_file_path= self.data_ingestion_artifact.trained_file_path,report_file_path= self.data_validation_config.data_report_file_path)
             return data_validation_artifact
 
         except Exception as e:

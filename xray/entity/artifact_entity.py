@@ -11,3 +11,8 @@ class DataValidationArtifact:
     valid_test_file_path: str
     valid_train_file_path: str
     report_file_path:str
+
+
+@dataclass
+class BaseModel:
+    base_model_path:str

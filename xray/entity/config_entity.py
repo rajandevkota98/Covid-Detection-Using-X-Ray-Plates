@@ -26,5 +26,7 @@ class DataValidationConfig:
         self.data_report_file_path:str = os.path.join(self.data_validation_dir,training_pipeline.DATA_VALIDATION_DATA_REPORT_DIR, training_pipeline.DATA_VALIDATION_DATA_REPORT_FILE_NAME)
 
 
-
-
+class BaseModelConfig:
+    def __init__(self,):
+        self.base_model_dir_name:str = os.path.join(training_pipeline.BASE_MODEL_DIR_NAME)
+        self.base_model_path: str = os.path.join(self.base_model_dir_name,training_pipeline.BASE_MODEL_NAME )

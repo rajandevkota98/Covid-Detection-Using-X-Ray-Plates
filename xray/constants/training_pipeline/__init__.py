@@ -10,7 +10,7 @@ FILE_NAME: str ='Dataset'
 TRAIN_FILE_NAME: str ='Train'
 TEST_FILE_NAME: str ='Val'
 MODEL_FILE_NAME: str = 'model.h5'
-PARAMS_FILE_NAME: str ='params.yaml'
+PARAMS_FILE_PATH: str ='params/params.yaml'
 CONFIG_FILE_PATH: str = 'config/config.yaml'
 
 """Data ingestion constant"""
@@ -25,4 +25,8 @@ DATA_VALIDATION_VALID_DIR:str = 'validated'
 DATA_VALIDATION_DATA_REPORT_DIR:str = 'data_report'
 DATA_VALIDATION_DATA_REPORT_FILE_NAME:str = 'report.yaml'
 
+
+"""Base Model"""
+BASE_MODEL_DIR_NAME:str = 'base_models'
+BASE_MODEL_NAME: str = 'base_model.h5'
 
