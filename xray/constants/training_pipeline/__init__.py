@@ -30,3 +30,11 @@ DATA_VALIDATION_DATA_REPORT_FILE_NAME:str = 'report.yaml'
 BASE_MODEL_DIR_NAME:str = 'base_models'
 BASE_MODEL_NAME: str = 'base_model.h5'
 
+"""Model Trainer"""
+MODEL_TRAINER_DIR_NAME: str = 'model_trainer'
+MODEL_TRAINER_MODEL_NAME: str = 'trained_model.h5'
+EXPECTED_ACCURACY: int = 0.8
+OVERFIT_THRESHOLD: int = 0.1
+
+
+

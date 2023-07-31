@@ -30,3 +30,13 @@ class BaseModelConfig:
     def __init__(self,):
         self.base_model_dir_name:str = os.path.join(training_pipeline.BASE_MODEL_DIR_NAME)
         self.base_model_path: str = os.path.join(self.base_model_dir_name,training_pipeline.BASE_MODEL_NAME )
+
+
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config:TrainingPipelineConfig):
+        self.trained_model_dir_name: str = os.path.join(training_pipeline_config.artifact_dir, training_pipeline.MODEL_TRAINER_DIR_NAME)
+        self.trained_model_file_path:str = os.path.join(self.trained_model_dir_name, training_pipeline.MODEL_TRAINER_MODEL_NAME)
+        self.expected_accuracy = training_pipeline.EXPECTED_ACCURACY
+        self.overfit_threshold = training_pipeline.OVERFIT_THRESHOLD
+
+        

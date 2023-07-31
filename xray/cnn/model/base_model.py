@@ -26,18 +26,11 @@ class BaseModel:
                 include_top=self._params_config['INCLUDE_TOP']
             )
             os.makedirs(os.path.dirname(self.base_model_config.base_model_path), exist_ok=True)
-            self.model.save(self.base_model_config.base_model_path, overwrite= False)
+            self.model.save(self.base_model_config.base_model_path, overwrite= True)
             base_model_artifact = BaseModelArtifact(base_model_path=self.base_model_config.base_model_path)
             return base_model_artifact
         except Exception as e:
              raise XrayException(e,sys)
-
-
-base_model_config = BaseModelConfig()
-base_model = BaseModel(base_model_config)
-base_model.get_base_model()
-
-
 
 
 
