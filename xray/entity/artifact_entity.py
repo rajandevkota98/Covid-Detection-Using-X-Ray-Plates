@@ -29,7 +29,6 @@ class ModelEvaluationArtifact:
     improved_accuracy:float
     best_model_file_path: str
     trained_model_file_path: str
-    trained_model_file_path:str
     
 @dataclass
 class ModelPusherArtifact:

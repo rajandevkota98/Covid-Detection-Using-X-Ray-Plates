@@ -54,8 +54,9 @@ class  Trainipipeline:
         try:
             logging.info('Starting model evaluation')
             self.model_evaluation_config = ModelEvaluationConfig(training_pipeline_config=self.training_pipeline_config)
-            model_evaluation = ModelEvaluation(data_ingestion_artifact=data_ingestion_artifact, model_trainer_artifact=model_trainer_artifact)
+            model_evaluation = ModelEvaluation(model_evaluation_config=self.model_evaluation_config,data_ingestion_artifact=data_ingestion_artifact, model_trainer_artifact=model_trainer_artifact)
             model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+            return model_evaluation_artifact
         except Exception as e:
              raise XrayException(e,sys)
          

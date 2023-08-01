@@ -37,7 +37,8 @@ class ModelEvaluation:
 
             if not model_resolver.is_model_exists():
                  logging.info('No saved model found')
-                 model_evaluation_artifact = ModelEvaluationArtifact(is_model_accepted=is_model_accepted,improved_accuracy= None, best_model_file_path=None, trained_model_file_path=trained_model_file_path)
+                 model_evaluation_artifact = ModelEvaluationArtifact(is_model_accepted= is_model_accepted,improved_accuracy= None,
+                                                                      best_model_file_path=None, trained_model_file_path=trained_model_file_path)
                  return model_evaluation_artifact
 
             
