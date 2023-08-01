@@ -40,7 +40,7 @@ OVERFIT_THRESHOLD: float = 0.3
 
 """Model Evaluation"""
 MODEL_EVALUATION_DIR_NAME:str = 'model_evaluation'
-MODEL_EVALUATION_CHANGED_THRESHOLD: float = 0.05
+MODEL_EVALUATION_CHANGED_THRESHOLD: float = 0.02
 MODEL_EVALUATION_REPORT_NAME:str = 'model_report.yaml'
 
 

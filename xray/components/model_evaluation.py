@@ -58,9 +58,9 @@ class ModelEvaluation:
             logging.info(f'improved_accuracy: {improved_accuracy}')
 
             if self.model_evaluation_config.model_evaluation_threshold < improved_accuracy:
-                 is_model_accepted = False
-            else:
                  is_model_accepted = True
+            else:
+                 is_model_accepted = False
             
             model_evaluation_arifact = ModelEvaluationArtifact(is_model_accepted=is_model_accepted, improved_accuracy=improved_accuracy,trained_model_file_path=trained_model_file_path, best_model_file_path=best_model_file_path)
             logging.info(f'model_evaluation_arifact:{model_evaluation_arifact}')

@@ -31,6 +31,6 @@ class ModelResolver:
             latest_model_path = self.SOTA_model()
             if not os.path.exists(latest_model_path):
                 return False
-
+            return True
         except Exception as e:
             raise XrayException(e,sys)

@@ -10,3 +10,7 @@ xray.egg-info/
 logs/
 
 base_models/
+
+saved_models/
+
+necessary_models/

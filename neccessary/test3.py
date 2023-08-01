@@ -15,7 +15,8 @@ import numpy as np
 from xray.constants.prediction_pipeline import PREDICTION_DIR, PREDICTED_DIR,REPORT_NAME
 os.makedirs(PREDICTION_DIR, exist_ok=True)
 os.makedirs(PREDICTED_DIR, exist_ok=True)
-import tempfile
+zip_file_save = 'zip_archieve'
+os.makedirs(zip_file_save, exist_ok=True)
 
 
 
@@ -62,14 +63,14 @@ def bulk_prediction(zip_file, save_path=PREDICTION_DIR):
             os.makedirs(predicted_file_path, exist_ok=True)
             shutil.copy(image_path, predicted_file_path)
         except Exception as e:
-            raise XrayException(e,sys)
+            raise XrayException(e, sys)
     report_file_path = os.path.join(PREDICTED_DIR, REPORT_NAME)
-    write_yaml_file(report_file_path,dict_)
+    write_yaml_file(report_file_path, dict_)
     shutil.rmtree(file_path)
-
     zip_file_path=shutil.make_archive(base_name='predicted1', format='zip', root_dir=PREDICTED_DIR)
+    print(zip_file_path)
     return zip_file_path
-
+    
 
 
 
@@ -87,7 +88,7 @@ def single_prediction(image_path):
     return predicted_class    
     
 
-
+bulk_prediction('test.zip')
 
 
 
