@@ -13,7 +13,7 @@ with DAG(
     description = 'Covid Detection usung X-ray plates',
     schedule_interval = "@weekly",
     start_date = pendulum.datetime(2023,7,2, tz="UTC"),
-    catchup = "False",
+    catchup = False,
     tags = ['xray_training']
 ) as dag:
     def training(**kwargs):
