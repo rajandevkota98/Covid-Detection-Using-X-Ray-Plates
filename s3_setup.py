@@ -36,9 +36,7 @@ class DataStore:
             logging.info('ending the sync')
         except Exception as e:
             raise XrayException(e,sys)
-        
 
-        
 s = DataStore()
 s.prepare_data()
 s.remove_unwanted()
