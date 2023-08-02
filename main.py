@@ -41,7 +41,6 @@ if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
 
 
-
 @app.post("/single_prediction_route")
 async def single_prediction_route(request:Request,image_file: UploadFile = File(...)):
     try:
