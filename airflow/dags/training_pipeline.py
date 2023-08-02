@@ -35,7 +35,7 @@ with DAG(
     )
 
     sync_data_to_s3 = PythonOperator(
-        task_id = 'training_pipeline',
+        task_id = 'sync_data_to_s3',
         python_callable = sync_artifacts_to_s3_bucket,
 
     )
