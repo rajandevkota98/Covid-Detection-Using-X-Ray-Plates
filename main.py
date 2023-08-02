@@ -1,7 +1,7 @@
 import os, sys
 from xray.exception  import XrayException
 from xray.logger import logging
-from xray.pipeline.training_pipeline import Trainipipeline
+from xray.pipeline.training_pipeline import Trainigpipeline
 from uvicorn import run as app_run
 from fastapi import FastAPI, File, UploadFile,Request
 from xray.constants.application import APP_HOST,APP_PORT
@@ -29,7 +29,7 @@ async def root():
 @app.get("/train")
 async def train_route():
     try:
-        train_pipeline = Trainipipeline()
+        train_pipeline = Trainigpipeline()
         train_pipeline.run_pieline()
         return Response('Model is trained successfully')
     except Exception as e:

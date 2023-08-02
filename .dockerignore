@@ -1,0 +1,8 @@
+artifact
+necessary
+logs
+saved_models
+*.egg-info
+.env
+data
+README.md

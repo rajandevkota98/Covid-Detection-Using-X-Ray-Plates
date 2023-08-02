@@ -10,7 +10,7 @@ from xray.cnn.model.base_model import BaseModel
 from xray.components.model_evaluation import ModelEvaluation
 from xray.components.model_pusher import ModelPusher
 
-class  Trainipipeline:
+class  Trainigpipeline:
     def __init__(self,):
         self.training_pipeline_config = TrainingPipelineConfig()
     
