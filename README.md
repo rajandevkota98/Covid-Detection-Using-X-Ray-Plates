@@ -8,6 +8,7 @@
 - [Tech Stack](#tech-stack)
 - [Infrastructure Required](#infrastructure-required)
 - [Architecture](#architecture)
+- [DEPLOYMENT](#deployment)
 - [How to Run the Project](#how-to-run-the-project)
 - [FastAPI](#FastAPI)
 - [Airflow-Setup](#Airflow-Setup)
@@ -42,7 +43,12 @@ Our solution involves using transfer learning, where we leverage pre-trained dee
 
 ## Architecture
 
-![Architecture Diagram](/path/to/architecture_diagram.png)
+![Architecture Diagram](https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/architecture.png)
+
+## Deployment
+
+![Deployment Diagram](https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/deployment.png)
+
 
 ## How to Run the Project
 
@@ -81,7 +87,7 @@ python main.py
 ``` 
 
 ## FastAPI:
-
+![FAST API]([https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/architecture.png](https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/Screenshot%20from%202023-08-04%2013-53-48.png))
 
 
 ## Airflow-Setup
