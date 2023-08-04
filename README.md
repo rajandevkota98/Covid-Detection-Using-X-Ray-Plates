@@ -80,11 +80,11 @@ python main.py
 
 ``` 
 
-# FastAPI:
+## FastAPI:
 
 
 
-# Airflow-Setup
+## Airflow-Setup
 If you properly setup and run the github action, you will get the docker image in your EC2 instance, you can access airflow from there.
 
 
