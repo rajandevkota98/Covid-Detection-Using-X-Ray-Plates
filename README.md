@@ -87,7 +87,7 @@ python main.py
 ``` 
 
 ## FastAPI:
-![FAST API]([https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/architecture.png](https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/Screenshot%20from%202023-08-04%2013-53-48.png))
+![FASTAPI SSS Diagram](https://github.com/rajandevkota98/Covid-Detection-Using-X-Ray-Plates/blob/main/flowchart/Screenshot%20from%202023-08-04%2013-53-48.png)
 
 
 ## Airflow-Setup
