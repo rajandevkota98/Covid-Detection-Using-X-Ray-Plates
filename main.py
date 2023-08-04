@@ -61,8 +61,6 @@ async def bulk_prediction_route(zip_file: UploadFile = File(...)):
     return FileResponse(predicted_zip_file, media_type="application/zip", headers={"Content-Disposition": "attachment; filename=predicted_files.zip"})
 
 
-
-
         
 if __name__ == "__main__":
     app_run(app,host=APP_HOST,port=APP_PORT)

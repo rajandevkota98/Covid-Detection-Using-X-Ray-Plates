@@ -49,7 +49,6 @@ class DataValidation:
             raise XrayException(e,sys)
 
 
-
     def check_image_or_not(self, image_dir:str):
 
         """
