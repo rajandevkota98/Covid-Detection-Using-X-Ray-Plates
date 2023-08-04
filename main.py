@@ -35,7 +35,6 @@ async def train_route():
     except Exception as e:
         raise XrayException(e,sys)     
 
-
 UPLOAD_DIRECTORY = "Uploaded"
 if not os.path.exists(UPLOAD_DIRECTORY):
     os.makedirs(UPLOAD_DIRECTORY)
